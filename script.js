@@ -68,14 +68,16 @@ function initThreeHeart() {
     animate();
 }
 
-/* REAL-TIME LOVE COUNTER TIMER (AYNAN 90 KUN) */
+/* REAL-TIME LOVE COUNTER TIMER (2026-yil 26-may, soat 19:00 dan boshlab aniq hisoblash) */
 function startLoveCounter() {
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 90);
+    // 2026-yil 26-may, soat 19:00:00 ni boshlang'ich nuqta qilib belgilaymiz
+    const startDate = new Date('2026-05-26T19:00:00');
 
     function updateCounter() {
         const now = new Date();
         const diff = now - startDate;
+
+        if (diff < 0) return; // Agar vaqt hali kelmagan bo'lsa
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
