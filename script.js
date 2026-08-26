@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 1. O'TGAN VAQTNI HISOBLASH (Taymer)
 function startLoveCounter() {
-    // Tanishgan yoki munosabat boshlangan aniq sana va vaqtni shu yerga yozamiz
     const startDate = new Date('2026-05-26T19:00:00');
 
     function updateCounter() {
@@ -45,7 +44,6 @@ function nextStep(stepNumber) {
 
 function checkPassword() {
     const passInput = document.getElementById('pass-input').value.trim();
-    // Parolni o'zingizga moslab o'zgartirishingiz mumkin, masalan "2026" yoki ism
     if (passInput !== "") {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('main-content').classList.remove('hidden');
@@ -133,7 +131,90 @@ function sendWish() {
     }
 }
 
-// 9. THREE.JS YURAK ANIMATSIYASI
+// 9. MINI O'YIN: QALB YURAKCHALARI
+let gameScore = 0;
+const maxScore = 10;
+
+function startGame() {
+    const gameArea = document.getElementById('game-area');
+    const startBtn = document.getElementById('start-game-btn');
+    
+    if (startBtn) startBtn.style.display = 'none';
+    gameScore = 0;
+    document.getElementById('score').innerText = gameScore;
+    
+    // O'yin maydoniga nisbatan nisbiypozitsiya beramiz
+    gameArea.style.position = 'relative';
+    gameArea.style.height = '180px';
+    gameArea.style.overflow = 'hidden';
+
+    let heartInterval = setInterval(() => {
+        if (gameScore >= maxScore) {
+            clearInterval(heartInterval);
+            return;
+        }
+        
+        const heart = document.createElement('div');
+        heart.innerHTML = '💖';
+        heart.style.position = 'absolute';
+        heart.style.left = Math.floor(Math.random() * (gameArea.clientWidth - 40)) + 'px';
+        heart.style.top = '-30px';
+        heart.style.cursor = 'pointer';
+        heart.style.fontSize = '26px';
+        heart.style.transition = 'top 1.8s linear';
+        heart.style.zIndex = '10';
+        
+        gameArea.appendChild(heart);
+        
+        // Pastga harakatlanishi
+        setTimeout(() => {
+            heart.style.top = (gameArea.clientHeight - 35) + 'px';
+        }, 50);
+        
+        // Ustiga bosganda ball qo'shish
+        heart.onclick = function() {
+            gameScore++;
+            document.getElementById('score').innerText = gameScore;
+            heart.remove();
+            
+            if (gameScore === maxScore) {
+                document.getElementById('game-result').classList.remove('hidden');
+                document.getElementById('game-reward-text').innerText = 'Tabriklayman! Sen barcha 10 ta yurakchani muvaffaqiyatli yig‘ding! Maxfiy tilagimiz doim amalga oshsin! ✨💖';
+            }
+        };
+        
+        // Vaqti o'tib o'zi yo'qolishi
+        setTimeout(() => {
+            if (heart.parentElement) {
+                heart.remove();
+            }
+        }, 1800);
+        
+    }, 900);
+}
+
+// 10. MAXFIY EGG / YULDUZCHALAR QUEST-I
+let foundEggs = 0;
+const totalEggs = 3;
+
+function unlockEgg(eggNum) {
+    const eggElement = document.getElementById('egg-' + eggNum);
+    // Agar oldin bosilmagan bo'lsa
+    if (eggElement && !eggElement.classList.contains('active')) {
+        eggElement.classList.add('active');
+        eggElement.style.background = '#ff758c';
+        foundEggs++;
+        
+        if (foundEggs === totalEggs) {
+            const rewardText = document.getElementById('quest-reward');
+            if (rewardText) rewardText.classList.remove('hidden');
+        } else {
+            alert(`Tabriklayman! ${foundEggs}-maxfiy kalit topildi. Qolganlarini ham qidiring! ✨`);
+        }
+    }
+}
+
+// 11. THREE.JS YURAK ANIMATSIYASI
 function initThreeHeart() {
     const container = document.getElementById('three-heart-canvas');
     if (!container) return;
@@ -145,7 +226,6 @@ function initThreeHeart() {
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
 
-    // Yurak shaklini chizish uchun geometriya
     const x = 0, y = 0;
     const heartShape = new THREE.Shape();
     heartShape.moveTo( x + 5, y + 5 );
