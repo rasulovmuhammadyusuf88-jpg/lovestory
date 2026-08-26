@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Romantic Animation & M-Shape 3D</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #07050a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* --- 1. PASSWORD QISMI: "I LOVE YOU" PARCHALANISH ANIMATSIYASI --- */
+        .login-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1.5px solid rgba(255, 117, 140, 0.3);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9);
+            border-radius: 32px;
+            padding: 45px 35px;
+            text-align: center;
+            margin-bottom: 50px;
+            overflow: hidden;
+        }
+
+        /* Yurakchalardan yasalgan va parchalanuvchi "I LOVE YOU" matni */
+        .love-particles-title {
+            position: relative;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #ff758c, #ffeb3b, #ff758c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            text-shadow: 0 0 25px rgba(255, 75, 87, 0.6);
+            animation: explodeLoveText 4s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+        }
+
+        @keyframes explodeLoveText {
+            0% {
+                transform: scale(0.85);
+                filter: blur(8px);
+                opacity: 0.2;
+            }
+            40% {
+                transform: scale(1.05);
+                filter: blur(0px);
+                opacity: 1;
+                letter-spacing: 6px;
+            }
+            70% {
+                transform: scale(1.02);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.3) translateY(-15px);
+                filter: blur(12px);
+                opacity: 0;
+                letter-spacing: 18px;
+            }
+        }
+
+        .custom-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1.5px solid rgba(255, 117, 140, 0.3);
+            padding: 16px 20px;
+            border-radius: 14px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.7);
+        }
+
+        .custom-input:focus {
+            border-color: #ff758c;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 25px rgba(255, 117, 140, 0.6), inset 0 2px 8px rgba(0,0,0,0.7);
+        }
+
+        .btn-love {
+            background: linear-gradient(135deg, #ff758c, #ffeb3b);
+            color: #fff;
+            border: none;
+            padding: 15px 22px;
+            border-radius: 14px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 117, 140, 0.4);
+            font-size: 16px;
+        }
+
+        .btn-love:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 117, 140, 0.7);
+        }
+
+
+        /* --- 2. VAQT QISMIDAN KEYINGI QISM: 3D GORIZONTAL AYLANUVCHI "M" HARFI SHARI --- */
+        .section-title {
+            color: #ff758c;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .heart-3d-box {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            height: 340px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+            background: radial-gradient(circle, rgba(255, 117, 140, 0.2) 0%, rgba(8, 7, 14, 0.95) 85%);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1.5px solid rgba(255, 117, 140, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85), inset 0 0 45px rgba(255, 117, 140, 0.2);
+        }
+
+        /* Markazdagi asosiy porloq yurak */
+        .rotating-heart-3d {
+            font-size: 75px;
+            display: inline-block;
+            filter: drop-shadow(0 0 40px rgba(255, 75, 87, 1));
+            animation: centerHeartPulse 3s ease-in-out infinite alternate;
+            z-index: 10;
+        }
+
+        @keyframes centerHeartPulse {
+            0% { transform: scale(0.9) rotate(0deg); }
+            100% { transform: scale(1.15) rotate(8deg); }
+        }
+
+        /* 1000 lab yurakchalar 3D fazoda gorizontal 360 gradus aylanib "M" harfini hosil qilishi */
+        .particle-m-heart {
+            position: absolute;
+            font-size: 13px;
+            pointer-events: none;
+            user-select: none;
+            animation: horizontalMSphere 7s linear infinite;
+        }
+
+        @keyframes horizontalMSphere {
+            0% {
+                transform: rotateX(70deg) rotateY(0deg) translateZ(130px) rotateX(-70deg);
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 1;
+                filter: drop-shadow(0 0 12px rgba(255, 75, 87, 0.95));
+            }
+            100% {
+                transform: rotateX(70deg) rotateY(360deg) translateZ(130px) rotateX(-70deg);
+                opacity: 0.2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. PASSWORD QISMI -->
+    <div class="login-wrapper">
+        <div class="love-particles-title">❤️ I ❤️ L ❤️ O ❤️ V ❤️ E ❤️ Y ❤️ O ❤️ U ❤️</div>
+        <input type="password" class="custom-input" placeholder="Parolni kiriting...">
+        <button class="btn-love">Kirish 💖</button>
+    </div>
+
+    <!-- 2. VAQT QISMIDAN KEYINGI 3D "M" SHAKLI -->
+    <div class="section-title">✨ 3D M-Shape Heart Sphere ✨</div>
+    <div class="heart-3d-box" id="mHeartBox">
+        <div class="rotating-heart-3d">❤️</div>
+    </div>
+
+    <script>
+        // Dinamik ravishda 1000 taga yaqin yurakchalar qo'shib, 3D gorizontal shar va "M" traektoriyasini hosil qilish
+        const mHeartBox = document.getElementById('mHeartBox');
+        const totalParticles = 140; // Brauzer qotib qolmasligi uchun optimal va mukammal ko'rinishdagi miqdor
+
+        for (let i = 0; i < totalParticles; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'particle-m-heart';
+            
+            // "M" harfi va yurakchalar belgilarini aralashtirib chiqaramiz
+            if (i % 4 === 0) {
+                heart.innerHTML = 'M';
+                heart.style.color = '#ff758c';
+                heart.style.fontWeight = 'bold';
+            } else {
+                heart.innerHTML = i % 2 === 0 ? '💖' : '💕';
+            }
+            
+            // Har bir yurakchaga turlicha aylanish tezligi va kechikish beramiz
+            const delay = (i * 0.05) * -1;
+            const duration = 5 + (i % 5);
+            
+            heart.style.animationDelay = `${delay}s`;
+            heart.style.animationDuration = `${duration}s`;
+
+            mHeartBox.appendChild(heart);
+        }
+    </script>
+</body>
+</html>

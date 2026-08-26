@@ -1,98 +1,245 @@
-/* --- PROFESSIONAL LUXURY DESIGN (extra.css) --- */
+/* --- ULTIMATE 3D HEART SPHERE & M-SHAPE (extra.css) --- */
 
-/* 1. 360 gradus tinimsiz aylanuvchi va yaltiraydigan 3D Yurak konteyneri */
+/* 1. YURAKLAR SHARI VA "M" HARFI 360 GRADUS AYLANISHI */
 .heart-3d-box {
+    position: relative;
     width: 100%;
-    height: 240px;
+    height: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
     perspective: 1000px;
-    background: radial-gradient(circle, rgba(255, 117, 140, 0.08) 0%, transparent 70%);
-    border-radius: 20px;
+    background: radial-gradient(circle, rgba(255, 117, 140, 0.18) 0%, rgba(8, 7, 14, 0.9) 85%);
+    border-radius: 30px;
+    overflow: hidden;
+    border: 1.5px solid rgba(255, 117, 140, 0.35);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), inset 0 0 50px rgba(255, 117, 140, 0.2);
 }
 
+/* Markazdagi asosiy porloq yurak */
 .rotating-heart-3d {
-    font-size: 80px;
+    font-size: 85px;
     display: inline-block;
-    filter: drop-shadow(0 0 25px rgba(255, 75, 87, 0.7));
-    animation: spin360 6s linear infinite, floatHeart 3s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 40px rgba(255, 75, 87, 1));
+    animation: centerHeartPulse 3s ease-in-out infinite alternate;
+    z-index: 10;
 }
 
-@keyframes spin360 {
+@keyframes centerHeartPulse {
+    0% { transform: scale(0.95) rotate(0deg); }
+    100% { transform: scale(1.1) rotate(5deg); }
+}
+
+/* 360 gradusda shar shaklida aylanib "M" harfini chizuvchi yurakchalar halqasi */
+.heart-3d-box::before {
+    content: '💖 M 💖 M 💖 M 💖 M 💖 M 💖 M 💖 M 💖 M';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 12px;
+    opacity: 0.85;
+    animation: sphereRotate360 8s linear infinite;
+    z-index: 2;
+    filter: drop-shadow(0 0 12px rgba(255, 117, 140, 0.95));
+    transform-style: preserve-3d;
+}
+
+@keyframes sphereRotate360 {
     0% {
-        transform: rotateY(0deg) scale(1);
+        transform: rotateX(20deg) rotateY(0deg) scale(0.9);
     }
     50% {
-        transform: rotateY(180deg) scale(1.15);
+        transform: rotateX(-20deg) rotateY(180deg) scale(1.15);
     }
     100% {
-        transform: rotateY(360deg) scale(1);
+        transform: rotateX(20deg) rotateY(360deg) scale(0.9);
     }
 }
 
-@keyframes floatHeart {
-    0% {
-        transform: translateY(0px) rotateY(0deg);
-    }
-    100% {
-        transform: translateY(-12px) rotateY(180deg);
-    }
+/* Orqa fondagi shar sharsimon suzuvchi mikro yurakchalar */
+.heart-3d-box::after {
+    content: '💕 💗 💓 🩷 🤍 💘 💫 💕 💗 💓 🩷 🤍 💘';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    opacity: 0.4;
+    animation: sphereRotateReverse 12s linear infinite;
+    z-index: 1;
 }
 
-/* 2. Glassmorphism kartochkalariga professional neon va yaltiroq effekt */
+@keyframes sphereRotateReverse {
+    0% { transform: rotateX(-30deg) rotateY(360deg); }
+    100% { transform: rotateX(30deg) rotateY(0deg); }
+}
+
+
+/* 2. PASSWORD (LOGIN) EKRANI - "I LOVE YOU" YURAKLARDAN TASHKIL TOPGAN DIZAYN */
+#login-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #1a1528 0%, #050408 100%);
+    z-index: 9999;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Parol ekranining tepasida yuraklardan yasalgan "I LOVE YOU" yozuvi foni */
+#login-screen::before {
+    content: 'I ❤️ L O V E ❤️ Y O U  ✨  I ❤️ L O V E ❤️ Y O U  ✨';
+    position: absolute;
+    top: 5%;
+    width: 200%;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 8px;
+    color: rgba(255, 117, 140, 0.35);
+    white-space: nowrap;
+    animation: scrollLoveText 15s linear infinite;
+    pointer-events: none;
+    text-shadow: 0 0 15px rgba(255, 75, 87, 0.6);
+}
+
+@keyframes scrollLoveText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Orqa fondagi sehrli neon nur */
+#login-screen::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, #ff758c, #ffeb3b);
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.25;
+    animation: glowPulsePass 5s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulsePass {
+    0% { transform: scale(0.8); opacity: 0.2; }
+    100% { transform: scale(1.25); opacity: 0.35; }
+}
+
+.quiz-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    border: 1.5px solid rgba(255, 117, 140, 0.25) !important;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+    border-radius: 32px !important;
+    padding: 45px 35px !important;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    animation: cardUltraAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10;
+}
+
+@keyframes cardUltraAppear {
+    from { opacity: 0; transform: translateY(40px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.quiz-card h2 {
+    color: #ffffff;
+    font-size: 23px;
+    margin-bottom: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-shadow: 0 2px 15px rgba(0,0,0,0.7);
+}
+
+.quiz-card .badge {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    padding: 7px 18px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: inline-block;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(255, 117, 140, 0.5);
+}
+
+/* Tugmalar va inputlar */
+.quiz-card .btn {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3) !important;
+    color: white !important;
+    border: none !important;
+    padding: 15px 22px !important;
+    border-radius: 14px !important;
+    font-weight: 600 !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+    cursor: pointer;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 8px 25px rgba(255, 117, 140, 0.4);
+}
+
+.quiz-card .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 117, 140, 0.7) !important;
+}
+
+.quiz-card .btn-outline {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #f1f5f9 !important;
+}
+
+.quiz-card .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 117, 140, 0.6) !important;
+    color: white !important;
+}
+
+.custom-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1.5px solid rgba(255, 117, 140, 0.3);
+    padding: 16px 20px;
+    border-radius: 14px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.7);
+}
+
+.custom-input:focus {
+    border-color: #ff758c;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 25px rgba(255, 117, 140, 0.6), inset 0 2px 8px rgba(0,0,0,0.7);
+}
+
+/* Asosiy sahifa kartalari */
 .glass-card {
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.glass-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 117, 140, 0.3);
-    box-shadow: 0 20px 40px rgba(255, 117, 140, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-/* 3. Yorug'lik bliki (Glow sweep effect) */
-.glass-card::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent 45%,
-        rgba(255, 255, 255, 0.05) 50%,
-        transparent 55%
-    );
-    transform: rotate(35deg) translateX(-100%);
-    transition: transform 0.8s ease-in-out;
-}
-
-.glass-card:hover::after {
-    transform: rotate(35deg) translateX(100%);
-}
-
-/* 4. Premium tugmalar uchun jozibali gradient va hover effekti */
-.btn, .mood-btn {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease !important;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 117, 140, 0.5) !important;
-}
-
-/* 5. Maxsus Neon matn effekti sarlavhalar uchun */
-.main-title {
-    text-shadow: 0 0 30px rgba(255, 117, 140, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
 }

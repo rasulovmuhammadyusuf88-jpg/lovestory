@@ -53,11 +53,13 @@
             <button onclick="nextStep(6)" class="btn btn-outline">Faqat shaxsiy manfaat ❌</button>
         </div>
 
-        <div id="step-6" class="glass-card quiz-card hidden">
+        <!-- 6-BOSQICH: PASSWORD QISMI VA "I LOVE YOU" PARCHALANISH ANIMATSIYASI -->
+        <div id="step-6" class="glass-card quiz-card hidden login-wrapper">
             <span class="badge">Maxfiy Kirish</span>
+            <div class="love-particles-title">❤️ I ❤️ L ❤️ O ❤️ V ❤️ E ❤️ Y ❤️ O ❤️ U ❤️</div>
             <h2>Parolni kiriting</h2>
             <input type="password" id="pass-input" class="custom-input" placeholder="🔒 Maxfiy kalit...">
-            <button onclick="checkPassword()" class="btn btn-primary">Kirish</button>
+            <button onclick="checkPassword()" class="btn btn-primary btn-love">Kirish 💖</button>
         </div>
     </div>
 
@@ -88,10 +90,11 @@
                 </div>
             </div>
 
-            <!-- 360 Gradus Aylanuvchi Professional Yurak -->
+            <!-- VAQT QISMIDAN PASTDA: 3D GORIZONTAL AYLANUVCHI "M" HARFI SHARI -->
             <section class="glass-card" style="margin-top: 20px;">
-                <div class="heart-3d-box">
-                    <div class="rotating-heart-3d">💖</div>
+                <div class="section-title" style="margin-bottom: 12px; font-size: 14px; color: #ff758c; text-align: center;">✨ 3D M-Shape Heart Sphere ✨</div>
+                <div class="heart-3d-box" id="mHeartBox">
+                    <div class="rotating-heart-3d">❤️</div>
                 </div>
             </section>
 
@@ -298,6 +301,36 @@
         <div class="quest-egg egg-pos-3" onclick="unlockEgg(3)">✨</div>
 
     </main>
+
+    <!-- Dinamik 3D M-harfi yurakchalarini chiqarish uchun JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mHeartBox = document.getElementById('mHeartBox');
+            if (mHeartBox) {
+                const totalParticles = 140; // Gorizontal shar uchun optimal miqdor
+                for (let i = 0; i < totalParticles; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'particle-m-heart';
+                    
+                    if (i % 4 === 0) {
+                        heart.innerHTML = 'M';
+                        heart.style.color = '#ff758c';
+                        heart.style.fontWeight = 'bold';
+                    } else {
+                        heart.innerHTML = i % 2 === 0 ? '💖' : '💕';
+                    }
+                    
+                    const delay = (i * 0.05) * -1;
+                    const duration = 5 + (i % 5);
+                    
+                    heart.style.animationDelay = `${delay}s`;
+                    heart.style.animationDuration = `${duration}s`;
+
+                    mHeartBox.appendChild(heart);
+                }
+            }
+        });
+    </script>
 
     <script src="script.js"></script>
 </body>
