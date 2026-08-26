@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initThreeHeart();
 });
 
-// 1. O'TGAN VAQTNI HISOBLASH (Taymer)
+// 1. Taymer
 function startLoveCounter() {
     const startDate = new Date('2026-05-26T19:00:00');
 
@@ -33,45 +33,13 @@ function startLoveCounter() {
     updateCounter();
 }
 
-// 2. BOSQICHLARNI ALMASHTIRISH VA YURAKCHALAR CHIQARISH
-function nextStep(stepNumber, event) {
-    if (event) {
-        createFloatingHeart(event.clientX, event.clientY);
-    }
+// 2. Bosqichlar va Parol
+function nextStep(stepNumber) {
     document.querySelectorAll('.quiz-card').forEach(card => card.classList.add('hidden'));
     const nextCard = document.getElementById('step-' + stepNumber);
     if (nextCard) {
         nextCard.classList.remove('hidden');
     }
-}
-
-function createFloatingHeart(x, y) {
-    const heart = document.createElement('div');
-    heart.innerHTML = '💖';
-    heart.style.position = 'fixed';
-    heart.style.left = (x ? x : window.innerWidth / 2) + 'px';
-    heart.style.top = (y ? y : window.innerHeight / 2) + 'px';
-    heart.style.fontSize = '24px';
-    heart.style.pointerEvents = 'none';
-    heart.style.zIndex = '9999';
-    heart.style.transition = 'transform 1s ease, opacity 1s ease';
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.style.transform = `translateY(-100px) scale(1.5)`;
-        heart.style.opacity = '0';
-    }, 50);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 1000);
-}
-
-function wrongAnswer(event) {
-    if (event) {
-        createFloatingHeart(event.clientX, event.clientY);
-    }
-    alert("Biroz o'ylab ko'ring, to'g'ri javobni topasiz! 😉");
 }
 
 function checkPassword() {
@@ -84,7 +52,7 @@ function checkPassword() {
     }
 }
 
-// 3. MUSIQANI YOQISH/O'CHIRISH
+// 3. Musiqa
 function toggleAudio() {
     const music = document.getElementById('bg-music');
     const icon = document.getElementById('music-icon');
@@ -101,7 +69,7 @@ function toggleAudio() {
     }
 }
 
-// 4. KAYFIYAT TUGMALARI
+// 4. Kayfiyat
 function selectMood(mood) {
     const box = document.getElementById('mood-response');
     box.classList.remove('hidden');
@@ -115,21 +83,54 @@ function selectMood(mood) {
     box.innerHTML = `<p>${text}</p>`;
 }
 
-// 5. THREE.JS 3D YURAK ANIMATSIYASI (Kafolatlangan versiya)
+// 5. Konvertlar
+function openEnvelope(element, num) {
+    const content = element.querySelector('.env-content');
+    const hint = element.querySelector('.env-hint');
+    if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        hint.style.display = 'none';
+    } else {
+        content.classList.add('hidden');
+        hint.style.display = 'block';
+    }
+}
+
+// 6. Mini O'yin Kupon
+function answerLoveQuiz(isCorrect) {
+    const quizBox = document.getElementById('love-quiz-box');
+    const coupon = document.getElementById('coupon-result');
+    if (isCorrect) {
+        quizBox.style.display = 'none';
+        coupon.classList.remove('hidden');
+    }
+}
+
+// 7. Tilaklar Qutisi
+function sendWish() {
+    const input = document.getElementById('wish-input');
+    const list = document.getElementById('wish-list');
+    if (input.value.trim() !== "") {
+        const div = document.createElement('div');
+        div.className = 'wish-item';
+        div.innerText = "✨ " + input.value;
+        list.prepend(div);
+        input.value = "";
+    }
+}
+
+// 8. 3D Yurak
 function initThreeHeart() {
     const container = document.getElementById('three-heart-canvas');
     if (!container) return;
 
-    // Sahna, kamera va render yaratish
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     
     renderer.setSize(container.clientWidth, container.clientHeight);
-    container.innerHTML = ""; // Avvalgi canvas bo'lsa tozalash
     container.appendChild(renderer.domElement);
 
-    // Yurak shaklini chizish
     const x = 0, y = 0;
     const heartShape = new THREE.Shape();
     heartShape.moveTo( x + 5, y + 5 );
@@ -149,7 +150,6 @@ function initThreeHeart() {
     mesh.scale.set(0.15, 0.15, 0.15);
     scene.add(mesh);
 
-    // Yoritish
     const light = new THREE.PointLight(0xffffff, 2, 100);
     light.position.set(10, 10, 25);
     scene.add(light);
@@ -159,7 +159,6 @@ function initThreeHeart() {
 
     camera.position.z = 5;
 
-    // Aylanish animatsiyasi
     function animate() {
         requestAnimationFrame(animate);
         mesh.rotation.y += 0.02;

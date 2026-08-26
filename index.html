@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <!-- Kirish va Parol Ekrani -->
+    <!-- Kirish va Quiz Bosqichlari -->
     <div id="login-screen">
         <!-- 1-Bosqich -->
         <div id="step-1" class="quiz-card glass-card">
@@ -107,6 +107,56 @@
                 <button class="mood-btn" onclick="selectMood('romantic')">Romantik 🌹</button>
             </div>
             <div id="mood-response" class="mood-box hidden"></div>
+        </section>
+
+        <!-- Konvertlar Bo'limi -->
+        <section class="glass-card section-box">
+            <h2 class="section-heading">💌 Maxfiy Konvertlar</h2>
+            <p class="section-sub">Har bir konvert ichida siz uchun maxsus so'zlar bor:</p>
+            <div class="envelopes-grid">
+                <div class="glass-card envelope-card" onclick="openEnvelope(this, 1)">
+                    <div class="env-icon">💌</div>
+                    <h4>1-Xat</h4>
+                    <span class="env-hint">Ochish uchun bosing</span>
+                    <div class="env-content hidden">Sizni uchratganimdan beri dunyodagi eng baxtli insonman. Har bir kunim siz bilan go'zal! 💖</div>
+                </div>
+                <div class="glass-card envelope-card" onclick="openEnvelope(this, 2)">
+                    <div class="env-icon">💌</div>
+                    <h4>2-Xat</h4>
+                    <span class="env-hint">Ochish uchun bosing</span>
+                    <div class="env-content hidden">Ko'zlaringizdagi quvonch mening butun dunyom. Doim kulib yuring, jigarim! ✨</div>
+                </div>
+                <div class="glass-card envelope-card" onclick="openEnvelope(this, 3)">
+                    <div class="env-icon">💌</div>
+                    <h4>3-Xat</h4>
+                    <span class="env-hint">Ochish uchun bosing</span>
+                    <div class="env-content hidden">Kelajagimiz birga, qo'l qo'l berib barcha sinovlarni yengib o'tamiz. Inshaalloh! 🌹</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mini O'yin / Quiz Bo'limi -->
+        <section class="glass-card section-box feature-card">
+            <h2 class="section-heading">🎁 Sevgi Kuponi</h2>
+            <p class="section-sub">Kichik savolga javob bering va maxsus kuponni qo'lga kiriting:</p>
+            <div id="love-quiz-box">
+                <p style="margin-bottom: 12px; font-size: 14px;">Bizning eng sevimli mashg'ulotimiz nima?</p>
+                <button class="btn" onclick="answerLoveQuiz(true)">Suhbat qurish va birga vaqt o'tkazish 🥰</button>
+            </div>
+            <div id="coupon-result" class="coupon-box hidden">
+                <span style="font-size: 24px;">🎟️</span>
+                <div class="coupon-title">"Cheksiz Mexribonlik" Kuponi</div>
+                <p style="font-size: 12px; color: #b2bec3;">Bu kupon egasi istalgan vaqtda xohlagancha e'tibor va shirin so'z olish huquqiga ega!</p>
+            </div>
+        </section>
+
+        <!-- Tilaklar Qutisi -->
+        <section class="glass-card section-box">
+            <h2 class="section-heading">📮 Tilaklar Qutisi</h2>
+            <p class="section-sub">Yҳоv (tilak yoki ko'ngildagi gap) yozib qoldiring:</p>
+            <input type="text" id="wish-input" class="custom-input" placeholder="Tilagingizni yozing...">
+            <button class="btn" onclick="sendWish()">Yuborish ✨</button>
+            <div id="wish-list" class="wish-container"></div>
         </section>
     </div>
 
