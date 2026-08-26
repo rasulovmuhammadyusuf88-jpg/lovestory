@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>M & Y | Interactive Romantic Story</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="webgl-container"></div>
+
+    <!-- KIRISH QUIZ VA PAROL SCREEN -->
+    <div id="login-screen" class="screen">
+        <div id="step-1" class="glass-card quiz-card">
+            <span class="badge">1-Bosqich</span>
+            <h2>Sizningcha, chinakam muhabbat nima?</h2>
+            <button onclick="nextStep(2)" class="btn">Ikki qalbning Alloh yo'lidagi birikishi ✨</button>
+            <button onclick="nextStep(2)" class="btn btn-outline">Shunchaki o'kinchli tuyg'u ❌</button>
+        </div>
+
+        <div id="step-2" class="glass-card quiz-card hidden">
+            <span class="badge">2-Bosqich</span>
+            <h2>Eng go'zal sevgi qaysi?</h2>
+            <button onclick="nextStep(3)" class="btn">Duolarda so'ralgan haloli 🤍</button>
+            <button onclick="nextStep(3)" class="btn btn-outline">Vaqtinchalik havas ❌</button>
+        </div>
+
+        <div id="step-3" class="glass-card quiz-card hidden">
+            <span class="badge">3-Bosqich</span>
+            <h2>Baxtli munosabatning siri nimada?</h2>
+            <button onclick="nextStep(4)" class="btn">Ishonch va samimiy hurmatda 🕊️</button>
+            <button onclick="nextStep(4)" class="btn btn-outline">Katta va'dalarda ❌</button>
+        </div>
+
+        <div id="step-4" class="glass-card quiz-card hidden">
+            <span class="badge">4-Bosqich</span>
+            <h2>Qalbga eng yaqin inson kim?</h2>
+            <button onclick="nextStep(5)" class="btn">Duolarida sizni eslaydigan inson 🤲</button>
+            <button onclick="nextStep(5)" class="btn btn-outline">Yaxshi kunlarda yonizda bo'lgan ❌</button>
+        </div>
+
+        <div id="step-5" class="glass-card quiz-card hidden">
+            <span class="badge">5-Bosqich</span>
+            <h2>Birga o'tadigan umr yo'lida eng muhimi nima?</h2>
+            <button onclick="nextStep(6)" class="btn">Qiyinchilikda ham qo'lni qo'yib yubormaslik 💖</button>
+            <button onclick="nextStep(6)" class="btn btn-outline">Faqat shaxsiy manfaat ❌</button>
+        </div>
+
+        <div id="step-6" class="glass-card quiz-card hidden">
+            <span class="badge">Maxfiy Kirish</span>
+            <h2>Parolni kiriting</h2>
+            <input type="password" id="pass-input" class="custom-input" placeholder="🔒 Maxfiy kalit...">
+            <button onclick="checkPassword()" class="btn btn-primary">Kirish</button>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTENT -->
+    <main id="main-content" class="app-wrapper hidden">
+
+        <header class="hero-section">
+            <div class="audio-widget glass-card" onclick="toggleAudio()">
+                <span id="music-icon">🎼</span>
+                <span id="music-text">Romantic Music</span>
+                <audio id="bg-music" loop preload="auto" src="music.mp3"></audio>
+            </div>
+
+            <div class="hero-content">
+                <span class="sub-tag">PREMIUM EXPERIENCE</span>
+                <h1 class="main-title">M & Y</h1>
+                <p class="hero-desc">Qalblar tili va cheksiz xotiralar maskani</p>
+            </div>
+
+            <!-- LOVE COUNTER (90 KUN) -->
+            <div class="glass-card counter-card">
+                <h3>Biz birga ekanligimizga:</h3>
+                <div id="love-timer">
+                    <div><span id="days">00</span><small>kun</small></div>
+                    <div><span id="hours">00</span><small>soat</small></div>
+                    <div><span id="minutes">00</span><small>daqiqa</small></div>
+                    <div><span id="seconds">00</span><small>soniya</small></div>
+                </div>
+            </div>
+
+            <div class="heart-3d-box">
+                <div id="three-heart-canvas"></div>
+            </div>
+
+            <div class="quest-egg" onclick="unlockEgg(1)">✨</div>
+        </header>
+
+        <!-- NEW 1: KAYFIYAT VA YULDUZLAR TURMUSHI (MOOD SELECTOR) -->
+        <section class="section-box text-center">
+            <h2 class="section-heading">🌟 Bugungi Kayfiyatingiz</h2>
+            <p class="section-sub">Kayfiyatingizni tanlang, sizga maxfiy dalda va samimiy so'z aytaman:</p>
+            <div class="glass-card mood-container">
+                <button class="mood-btn" onclick="selectMood('happy')">😊 Xursandman</button>
+                <button class="mood-btn" onclick="selectMood('miss')">🥺 Sog'indim</button>
+                <button class="mood-btn" onclick="selectMood('tired')">😴 Charchadim</button>
+                <button class="mood-btn" onclick="selectMood('romantic')">💖 Romantik</button>
+                <div id="mood-response" class="mood-box hidden"></div>
+            </div>
+        </section>
+
+        <!-- 5 TA ROMANTIK KONVERT -->
+        <section class="section-box text-center">
+            <h2 class="section-heading">💌 Qalb Maktublari (5 Konvert)</h2>
+            <p class="section-sub">Har bir konvert ustiga bosing va maxfiy so'zlarni oling:</p>
+            
+            <div class="envelopes-grid">
+                <div class="envelope-card glass-card" onclick="openEnvelope(this, 1)">
+                    <div class="env-icon">✉️💖</div>
+                    <h4>1-Maktub</h4>
+                    <p class="env-hint">Bosing...</p>
+                    <div class="env-content hidden">
+                        <p>"Siz mening hayotimga kirib kelgan eng go'zal va bebaholar ne'matsiz. Har bir tabassumingiz qalbimga xotirjamlik bag'ishlaydi."</p>
+                    </div>
+                </div>
+
+                <div class="envelope-card glass-card" onclick="openEnvelope(this, 2)">
+                    <div class="env-icon">💌🌸</div>
+                    <h4>2-Maktub</h4>
+                    <p class="env-hint">Bosing...</p>
+                    <div class="env-content hidden">
+                        <p>"Duolarimda so'ragan halol va samimiy niyatlarimning amaldagi aksini sizda ko'rdim. Borligingiz uchun shukronalar bo'lsin."</p>
+                    </div>
+                </div>
+
+                <div class="envelope-card glass-card" onclick="openEnvelope(this, 3)">
+                    <div class="env-icon">✉️✨</div>
+                    <h4>3-Maktub</h4>
+                    <p class="env-hint">Bosing...</p>
+                    <div class="env-content hidden">
+                        <p>"Dunyoning barcha shovqin-suronida siz mening eng tinch, eng osuda va eng xavfsiz maskanimsiz."</p>
+                    </div>
+                </div>
+
+                <div class="envelope-card glass-card" onclick="openEnvelope(this, 4)">
+                    <div class="env-icon">💌🌙</div>
+                    <h4>4-Maktub</h4>
+                    <p class="env-hint">Bosing...</p>
+                    <div class="env-content hidden">
+                        <p>"Kelajak sari birga qo'yiladigan har bir qadamda Alloh rizoligi va cheksiz saodat yor bo'lishini tilayman."</p>
+                    </div>
+                </div>
+
+                <div class="envelope-card glass-card" onclick="openEnvelope(this, 5)">
+                    <div class="env-icon">✉️💎</div>
+                    <h4>5-Maktub</h4>
+                    <p class="env-hint">Bosing...</p>
+                    <div class="env-content hidden">
+                        <p>"Munosabatimiz vaqtincha emas, har bir kuni qadrlanadigan va abadiylikka tutashadigan muqaddas rishtadir."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW 2: BIZNING UNUTILMAS XOTIRALAR XARITASI -->
+        <section class="section-box text-center">
+            <h2 class="section-heading">📍 Unutilmas Xotiralar Xaritasi</h2>
+            <p class="section-sub">Qalbi chuqur iz qoldirgan uchta eng shirin onimiz:</p>
+            <div class="memory-map-grid">
+                <div class="glass-card map-card" onclick="showMapDetail(1)">
+                    <div class="map-icon">📱❄️</div>
+                    <h3>1. Telegramda Ilk Suhbat</h3>
+                    <p class="map-date">Qish Faslida</p>
+                    <div id="map-detail-1" class="map-detail hidden">
+                        <p>Qahraton qish bo'lishiga qaramay, Telegram orqali yozishgan ilk onimizdan qalbimda mislsiz iliqlik va shirin bir umid paydo bo'lgan kun.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card map-card" onclick="showMapDetail(2)">
+                    <div class="map-icon">💍💖</div>
+                    <h3>2. Munosabatimiz Boshlanishi</h3>
+                    <p class="map-date">Sevgi Izhori Kuni</p>
+                    <div id="map-detail-2" class="map-detail hidden">
+                        <p>Samimiy izhorlar va niyatlar bilan munosabatimiz (otnosheniya) rasman boshlangan, ikki qalb bir butunga aylangan unutilmas bosqich.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card map-card" onclick="showMapDetail(3)">
+                    <div class="map-icon">🏫🫂</div>
+                    <h3>3. Ilk Samimiy Quchoq</h3>
+                    <p class="map-date">O'qishning Orqa Tomonida</p>
+                    <div id="map-detail-3" class="map-detail hidden">
+                        <p>O'qishning orqa tomonida sizni ilk bor bag'rimga bosib turganim... Dunyo to'xtab qolgandek va barcha vaqt faqat biz uchun oqayotgandek tuyulgan eng baxtli on.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE -->
+        <section class="section-box">
+            <h2 class="section-heading">📜 Bizning Vaqt Chizig'imiz</h2>
+            <div class="timeline">
+                <div class="timeline-item left glass-card">
+                    <span class="date">Ilk Qadam (Qish)</span>
+                    <h3>Telegramda Suhbat</h3>
+                    <p>Qishning ilk kunlarida Telegram orqali boshlangan samimiy va iliq suhbatimiz.</p>
+                </div>
+                <div class="timeline-item right glass-card">
+                    <span class="date">Sevgi Izhori</span>
+                    <h3>Otnosheniya Boshlanishi</h3>
+                    <p>Qalblar izhori va munosabatlarimizning go'zal va halol tarzda iljayishi.</p>
+                </div>
+                <div class="timeline-item left glass-card">
+                    <span class="date">Unutilmas On</span>
+                    <h3>O'qish Orqasidagi Quchoq</h3>
+                    <p>O'qishning orqa qismida ilk bor samimiy quchoqlab turgan, mehrga to'la soniyalar.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW 3: KELAJAKKA MAKTUB (TIME CAPSULE) -->
+        <section class="section-box text-center">
+            <h2 class="section-heading">⏳ Kelajak Kapsulasi</h2>
+            <div class="glass-card feature-card">
+                <div class="capsule-icon">🔒✉️</div>
+                <h3>1 Yillik Tanishuv Kuni Uchun Maxfiy Maktub</h3>
+                <p class="section-sub">Ushbu maktub faqat 1 yillik ayyomimiz kelganda avtomatik ravishda ochiladi!</p>
+                <div id="capsule-status" class="capsule-lock-box">
+                    <span>🔒 Maktub hali qulflangan...</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW 4: SIZNI QANCHALIK BILAMAN? (QUIZ & SOVG'A KUPONI) -->
+        <section class="section-box text-center">
+            <h2 class="section-heading">🧩 Sizni Qanchalik Bilaman?</h2>
+            <div class="glass-card game-card">
+                <p class="game-desc">Savolga to'g'ri javob bering va maxfiy sovg'a kuponiga ega bo meying!</p>
+                <div id="love-quiz-box">
+                    <h3 style="font-size: 15px; margin-bottom: 12px; color: #ffeaa7;">Biz uchun eng qadrli va unutilmas maskan qayer?</h3>
+                    <button class="btn btn-outline" onclick="answerLoveQuiz(false)">Oddiy park va ko'chalar ❌</button>
+                    <button class="btn btn-outline" onclick="answerLoveQuiz(true)">O'qishning orqa tomonidagi maxfiy joyimiz 💖</button>
+                </div>
+                <div id="coupon-result" class="coupon-box hidden">
+                    <h3>🎉 TABRIKLAYMIZ!</h3>
+                    <p class="coupon-title">🎁 Sovg'a Kuponi: "Birga Shokoladli Qahvava Kutilmagan Syurpriz"</p>
+                    <small>Ushbu kuponni istalgan vaqtda ishlatishingiz mumkin! ✨</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- MINI O'YIN: YURAKCHALARNI TERISH -->
+        <section class="section-box text-center">
+            <h2 class="section-heading">🎮 Mini O'yin: Qalb Yurakchalari</h2>
+            <div class="glass-card game-card">
+                <p class="game-desc">Tushayotgan 10 ta yurakchani tutib oling va maxfiy tilakni oching!</p>
+                <div class="game-stats">
+                    <span>Yig'ilgan yurakchalar: <strong id="score" style="color: #ff758c;">0</strong> / 10</span>
+                </div>
+                <div id="game-area">
+                    <button id="start-game-btn" onclick="startGame()" class="btn-glow" style="width: auto; padding: 12px 24px;">O'yinni boshlash 🚀</button>
+                </div>
+                <div id="game-result" class="hidden" style="margin-top: 15px;">
+                    <h3 style="color: #ff758c; margin-bottom: 8px;">Tabriklayman! 🎉</h3>
+                    <p id="game-reward-text" style="color: #ffeaa7; font-size: 14px;"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WISHING WELL -->
+        <section class="section-box text-center">
+            <h2 class="section-heading">🌟 Sehrli Tilaklar Qutisi</h2>
+            <div class="glass-card feature-card">
+                <p class="section-sub" style="margin-bottom: 10px;">Qalbingizdagi eng ezgu tilakni yozing va osmonga uchiring!</p>
+                <input type="text" id="wish-input" class="custom-input" placeholder="Tilagingizni yozing...">
+                <button onclick="sendWish()" class="btn-glow">Tilakni Uchirish 🚀</button>
+                <div id="wish-list" class="wish-container"></div>
+            </div>
+        </section>
+
+        <!-- QUEST STATUS -->
+        <section class="section-box text-center">
+            <div class="glass-card quest-status-card">
+                <h3>🔍 Maxfiy Kalitlar Quest-i</h3>
+                <p style="font-size: 13px; color: #a29bfe; margin-top: 5px;">Sayt bo'ylab yashiringan 3 ta maxfiy yulduzchani (✨) toping!</p>
+                <div class="egg-tracker">
+                    <span id="egg-1" class="egg-dot"></span>
+                    <span id="egg-2" class="egg-dot"></span>
+                    <span id="egg-3" class="egg-dot"></span>
+                </div>
+                <p id="quest-reward" class="quest-reward-text hidden" style="color: #ff758c; font-weight: 600;">🎉 Barcha maxfiy kalitlar topildi! Siz eng e'tiborli insoonsiz! 💖</p>
+            </div>
+        </section>
+
+        <div class="quest-egg egg-pos-2" onclick="unlockEgg(2)">✨</div>
+        <div class="quest-egg egg-pos-3" onclick="unlockEgg(3)">✨</div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
