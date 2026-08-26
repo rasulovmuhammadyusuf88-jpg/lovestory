@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="extra.css">
 </head>
 <body>
 
@@ -67,7 +68,6 @@
             <div class="audio-widget glass-card" onclick="toggleAudio()">
                 <span id="music-icon">🎼</span>
                 <span id="music-text">Romantic Music</span>
-                <!-- BU YERDA MUSIQA NOMI JESTALON.MP3 QILIB TO'G'RILANDI -->
                 <audio id="bg-music" loop preload="auto" src="jestalon.mp3"></audio>
             </div>
 
@@ -77,7 +77,7 @@
                 <p class="hero-desc">Qalblar tili va cheksiz xotiralar maskani</p>
             </div>
 
-            <!-- LOVE COUNTER (90 KUN) -->
+            <!-- LOVE COUNTER -->
             <div class="glass-card counter-card">
                 <h3>Biz birga ekanligimizga:</h3>
                 <div id="love-timer">
@@ -88,9 +88,12 @@
                 </div>
             </div>
 
-            <div class="heart-3d-box">
-                <div id="three-heart-canvas"></div>
-            </div>
+            <!-- 360 Gradus Aylanuvchi Professional Yurak -->
+            <section class="glass-card" style="margin-top: 20px;">
+                <div class="heart-3d-box">
+                    <div class="rotating-heart-3d">💖</div>
+                </div>
+            </section>
 
             <div class="quest-egg" onclick="unlockEgg(1)">✨</div>
         </header>
@@ -180,7 +183,7 @@
                     <h3>2. Munosabatimiz Boshlanishi</h3>
                     <p class="map-date">Sevgi Izhori Kuni</p>
                     <div id="map-detail-2" class="map-detail hidden">
-                        <p>Samimiy izhorlar va niyatlar bilan munosabatimiz (otnosheniya) rasman boshlangan, ikki qalb bir butunga aylangan unutilmas bosqich.</p>
+                        <p>Samimiy izhorlar va niyatlar bilan munosabatimiz rasman boshlangan, ikki qalb bir butunga aylangan unutilmas bosqich.</p>
                     </div>
                 </div>
 
@@ -207,7 +210,7 @@
                 <div class="timeline-item right glass-card">
                     <span class="date">Sevgi Izhori</span>
                     <h3>Otnosheniya Boshlanishi</h3>
-                    <p>Qalblar izhori va munosabatlarimizning go'zal va halol tarzda iljayishi.</p>
+                    <p>Qalblar izhori va munosabatlarimizning go'zal va halol tarzda boshlanishi.</p>
                 </div>
                 <div class="timeline-item left glass-card">
                     <span class="date">Unutilmas On</span>
