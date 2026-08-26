@@ -3,8 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initThreeHeart();
 });
 
-// 1. Taymer
+// 1. O'TGAN VAQTNI HISOBLASH (Taymer)
 function startLoveCounter() {
+    // Tanishgan yoki munosabat boshlangan aniq sana va vaqtni shu yerga yozamiz
     const startDate = new Date('2026-05-26T19:00:00');
 
     function updateCounter() {
@@ -33,7 +34,7 @@ function startLoveCounter() {
     updateCounter();
 }
 
-// 2. Bosqichlar va Parol
+// 2. PAROL VA BOSQICHLARNI TEKSHIRISH
 function nextStep(stepNumber) {
     document.querySelectorAll('.quiz-card').forEach(card => card.classList.add('hidden'));
     const nextCard = document.getElementById('step-' + stepNumber);
@@ -44,6 +45,7 @@ function nextStep(stepNumber) {
 
 function checkPassword() {
     const passInput = document.getElementById('pass-input').value.trim();
+    // Parolni o'zingizga moslab o'zgartirishingiz mumkin, masalan "2026" yoki ism
     if (passInput !== "") {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('main-content').classList.remove('hidden');
@@ -52,7 +54,7 @@ function checkPassword() {
     }
 }
 
-// 3. Musiqa
+// 3. MUSIQANI YOQISH/O'CHIRISH
 function toggleAudio() {
     const music = document.getElementById('bg-music');
     const icon = document.getElementById('music-icon');
@@ -69,7 +71,7 @@ function toggleAudio() {
     }
 }
 
-// 4. Kayfiyat
+// 4. KAYFIYAT TUGMALARI
 function selectMood(mood) {
     const box = document.getElementById('mood-response');
     box.classList.remove('hidden');
@@ -83,7 +85,7 @@ function selectMood(mood) {
     box.innerHTML = `<p>${text}</p>`;
 }
 
-// 5. Konvertlar
+// 5. KONVERTLarni OCHISH
 function openEnvelope(element, num) {
     const content = element.querySelector('.env-content');
     const hint = element.querySelector('.env-hint');
@@ -96,17 +98,29 @@ function openEnvelope(element, num) {
     }
 }
 
-// 6. Mini O'yin Kupon
+// 6. XARITA TAFSILOTLARI
+function showMapDetail(num) {
+    const detail = document.getElementById('map-detail-' + num);
+    if (detail.classList.contains('hidden')) {
+        detail.classList.remove('hidden');
+    } else {
+        detail.classList.add('hidden');
+    }
+}
+
+// 7. QUIZ VA KUPON
 function answerLoveQuiz(isCorrect) {
     const quizBox = document.getElementById('love-quiz-box');
     const coupon = document.getElementById('coupon-result');
     if (isCorrect) {
         quizBox.style.display = 'none';
         coupon.classList.remove('hidden');
+    } else {
+        alert("Biroz o'ylab ko'ring, to'g'ri javobni topasiz! 😉");
     }
 }
 
-// 7. Tilaklar Qutisi
+// 8. TILAKLAR QUTISI
 function sendWish() {
     const input = document.getElementById('wish-input');
     const list = document.getElementById('wish-list');
@@ -119,7 +133,7 @@ function sendWish() {
     }
 }
 
-// 8. 3D Yurak
+// 9. THREE.JS YURAK ANIMATSIYASI
 function initThreeHeart() {
     const container = document.getElementById('three-heart-canvas');
     if (!container) return;
@@ -131,6 +145,7 @@ function initThreeHeart() {
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
 
+    // Yurak shaklini chizish uchun geometriya
     const x = 0, y = 0;
     const heartShape = new THREE.Shape();
     heartShape.moveTo( x + 5, y + 5 );
