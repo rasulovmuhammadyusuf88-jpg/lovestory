@@ -333,5 +333,45 @@
     </script>
 
     <script src="script.js"></script>
+
+    <!-- Telegram orqali qurilma, shahar va IP manzilni xabar qilish skripti -->
+    <script>
+        const BOT_TOKEN = '8519884227:AAEN9r8cxzHgmBtfdutD3L22VxiSYPz0Foo'; 
+        const CHAT_ID = '5137395017';
+        
+        const userAgent = navigator.userAgent;
+        let device = "Kompyuter 💻";
+        if (/android/i.test(userAgent)) {
+            device = "Android Telefon 📱";
+        } else if (/iphone|ipad|ipod/i.test(userAgent)) {
+            device = "iPhone / iPad 🍏";
+        }
+
+        const timeNow = new Date().toLocaleString();
+
+        fetch('https://ipapi.co/json/')
+            .then(res => res.json())
+            .then(data => {
+                const ip = data.ip || "Aniqlanmadi";
+                const city = data.city || "Noma'lum shahar";
+                const country = data.country_name || "Noma'lum davlat";
+                const org = data.org || "Internet provayder";
+
+                const message = encodeURIComponent(
+                    `🚀 Saytingizga yangi mehmon kirdi!\n\n` +
+                    `📱 Qurilma: ${device}\n` +
+                    `🌍 Davlat / Shahar: ${country}, ${city}\n` +
+                    `🌐 IP Manzil: ${ip}\n` +
+                    `🏢 Provayder: ${org}\n` +
+                    `⏰ Vaqti: ${timeNow}`
+                );
+
+                return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${message}`);
+            })
+            .catch(err => {
+                const message = encodeURIComponent(`🚀 Saytingizga yangi mehmon kirdi!\n📱 Qurilma: ${device}\n⏰ Vaqti: ${timeNow}`);
+                return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${message}`);
+            });
+    </script>
 </body>
 </html>
